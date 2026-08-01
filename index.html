@@ -2,383 +2,320 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>
-      Encrypt X - Obfuscator
-    </title>
+    <title>Encrypt X - Obfuscator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       body {
-    margin: 100;
-    min-height: 100vh;
+        margin: 0;
+        min-height: 100vh;
+        background:
+          radial-gradient(circle at center, rgba(0,0,0,0.8) 0%, rgba(2,6,23,0.98) 100%),
+          url("https://raw.githubusercontent.com/ScriptObfuscator2/Website/refs/heads/main/Dark%20Theme%20With%20Light%20Bulb.jpeg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        font-family: "Courier New", monospace;
+        color: #e2e8f0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+        box-sizing: border-box;
+      }
 
-    background:
-      radial-gradient(circle at center, rgba(0,0,0,0.75) 0%, rgba(2,6,23,0.95) 100%),
-      url("https://raw.githubusercontent.com/ScriptObfuscator2/Website/refs/heads/main/Dark%20Theme%20With%20Light%20Bulb.jpeg");
+      .container {
+        width: min(90%, 600px);
+        background: rgba(15, 23, 42, 0.9);
+        border: 2px solid #1e293b;
+        border-radius: 16px;
+        padding: 35px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
+        text-align: center;
+      }
 
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
+      h1 {
+        font-size: 20px;
+        color: #38bdf8; /* เปลี่ยนจากสีแดงเป็นฟ้าไซเบอร์ */
+        margin-bottom: 25px;
+        letter-spacing: 1px;
+      }
 
-    font-family: "Courier New", monospace;
-    color: #e2e8f0;
+      textarea {
+        width: 100%;
+        height: 200px;
+        background: rgba(2, 6, 23, 0.95);
+        border: 1px solid #334155;
+        border-radius: 10px;
+        padding: 14px;
+        color: #e2e8f0;
+        font-size: 13px;
+        resize: none;
+        outline: none;
+        overflow: auto;
+        white-space: pre;
+        box-sizing: border-box;
+        transition: border-color 0.2s;
+      }
 
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-top:120px;
-    padding-bottom:120px;
+      textarea:focus {
+        border-color: #38bdf8;
+      }
 
-    padding: 20px;
-    box-sizing: border-box;
-  }
+      .switch-container {
+        margin-top: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 12px;
+        font-size: 13px;
+        color: #cbd5e1;
+      }
 
-  .container {
-    width: min(90%, 600px);
-    background: rgba(15, 23, 42, 0.85);
-    border: 2px solid #334155;
-    border-radius: 12px;
-    padding: 30px;
-    box-shadow: 0 0 40px rgba(0,0,0,0.8);
-    text-align: center;
-  }
+      .switch {
+        position: relative;
+        width: 44px;
+        height: 22px;
+      }
 
-  h1 {
-    font-size: 18px;
-    color: #ef4444;
-    margin-bottom: 20px;
-  }
+      .switch input {
+        display: none;
+      }
 
-  textarea {
-    width: 90%;
-    height: 200px;
-    background: rgba(2,6,23,0.9);
-    border: 1px solid #334155;
-    border-radius: 8px;
-    padding: 12px;
-    color: #e2e8f0;
-    font-size: 13px;
+      .slider {
+        position: absolute;
+        cursor: pointer;
+        inset: 0;
+        background-color: #334155;
+        border-radius: 22px;
+        transition: 0.3s;
+      }
 
-    resize: none;
-    outline: none;
+      .slider:before {
+        content: "";
+        position: absolute;
+        height: 18px;
+        width: 18px;
+        left: 2px;
+        top: 2px;
+        background-color: white;
+        border-radius: 50%;
+        transition: 0.3s;
+      }
 
-    overflow: auto;
-    white-space: pre;
-  }
+      input:checked + .slider {
+        background-color: #0ea5e9; /* เปลี่ยนสีตอนเปิดสวิตช์เป็นฟ้าสวยๆ */
+      }
 
-  .switch-container {
-    margin-top: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: flex-start;
-    gap: 10px;
-    font-size: 13px;
-    color: #cbd5f5;
-  }
+      input:checked + .slider:before {
+        transform: translateX(22px);
+      }
 
-  .switch {
-    position: relative;
-    width: 40px;
-    height: 20px;
-  }
+      .key-input {
+        margin-top: 12px;
+        display: none;
+      }
 
-  .switch input {
-    display: none;
-  }
+      .key-input input {
+        width: 100%;
+        padding: 12px;
+        border-radius: 10px;
+        border: 1px solid #334155;
+        background: rgba(2, 6, 23, 0.95);
+        color: #e2e8f0;
+        outline: none;
+        font-size: 13px;
+        box-sizing: border-box;
+      }
 
-  .slider {
-    position: absolute;
-    cursor: pointer;
-    inset: 0;
-    background-color: #334155;
-    border-radius: 20px;
-    transition: 0.3s;
-  }
+      .key-input input:focus {
+        border-color: #0ea5e9;
+      }
 
-  .slider:before {
-    content: "";
-    position: absolute;
-    height: 16px;
-    width: 16px;
-    left: 2px;
-    top: 2px;
-    background-color: white;
-    border-radius: 50%;
-    transition: 0.3s;
-  }
+      button {
+        margin-top: 22px;
+        width: 100%;
+        padding: 14px;
+        background: linear-gradient(135deg, #0284c7, #0ea5e9); /* เปลี่ยนปุ่มเป็นเฉดฟ้า-น้ำเงิน */
+        border: none;
+        border-radius: 10px;
+        color: white;
+        font-size: 15px;
+        font-weight: bold;
+        cursor: pointer;
+        transition: 0.2s;
+        box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+      }
 
-  input:checked + .slider {
-    background-color: #ef4444;
-  }
+      button:hover {
+        background: linear-gradient(135deg, #0369a1, #0284c7);
+        box-shadow: 0 6px 16px rgba(14, 165, 233, 0.4);
+      }
 
-  input:checked + .slider:before {
-    transform: translateX(20px);
-  }
+      button:active {
+        transform: scale(0.98);
+      }
 
-  .key-input {
-    margin-top: 10px;
-    display: none;
-  }
+      .footer {
+        margin-top: 15px;
+        font-size: 11px;
+        color: #64748b;
+      }
 
-  .key-input input {
-    width: 90%;
-    padding: 10px;
-    border-radius: 8px;
-    border: 1px solid #334155;
-    background: rgba(2,6,23,0.9);
-    color: #e2e8f0;
-    outline: none;
-    font-size: 13px;
-  }
-
-  button {
-    margin-top: 15px;
-    width: 100%;
-    padding: 12px;
-    background: #ef4444;
-    border: none;
-    border-radius: 8px;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-
-  button:hover {
-    background: #dc2626;
-  }
-
-  .footer {
-    margin-top: 11px;
-    font-size: 11px;
-    color: #94a3b8;
-  }
-
-  .date {
-    position: fixed;
-    bottom: 10px;
-    left: 0;
-    width: 100%;
-    text-align: center;
-    font-size: 10px;
-    color: #64748b;
-    pointer-events: none;
-  }
-  
-  .page{
-    width:100%;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding-top:110px;
-  }
-  
-  .top-fixed-banner{
-    position:fixed;
-    top:10px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:9999;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    height:90px;
-  }
-  
-  .bottom-fixed-banner{
-    width:100%;
-    display:flex;
-    justify-content:center;
-    margin-top:40px;
-    margin-bottom:20px;
-  }
+      .date {
+        margin-top: 20px;
+        text-align: center;
+        font-size: 10px;
+        color: #475569;
+      }
     </style>
   </head>
   <body>
-    <!-- FIXED TOP BANNER -->
-    <div class="top-fixed-banner">
-      <script>
-        atOptions = {
-    'key' : 'fcd076059604f8b969c86e85c0858db6',
-    'format' : 'iframe',
-    'height' : 90,
-    'width' : 728,
-    'params' : {}
-  };
-      </script>
-      <script src="https://www.highperformanceformat.com/fcd076059604f8b969c86e85c0858db6/invoke.js">
-      </script>
-    </div>
-    
-    <!-- (โฆษณา Popunder ตัวที่ชอบเด้งตอนกดหน้าจอ ถูกลบทิ้งเรียบร้อยแล้ว!) -->
 
-    <div class="page">
-      <div class="container">
-        <h1>
-          Encrypt X Obfuscator
-        </h1>
-        <textarea id="scriptBox" placeholder="Paste your script here...">
-        </textarea>
-        <!-- SWITCH 1 -->
-        <div class="switch-container">
-          <label class="switch">
-            <input type="checkbox" id="keyToggle" onchange="toggleKeyBox()" />
-            <span class="slider"></span>
-          </label>
-          <span>          Key (Enable Access)
-</span>
-        </div>
-        <!-- KEY INPUT (NOW UNDER SWITCH 1) -->
-        <div class="key-input" id="keyBox">
-          <input type="text" id="keyInput" maxlength="32" placeholder="Enter your access key..." />
-        </div>
-        <!-- SWITCH 2 -->
-        <div class="switch-container">
-          <label class="switch">
-            <input type="checkbox" id="customIdToggle" onchange="toggleCustomIdBox()" />
-            <span class="slider"></span>
-          </label>
-          <span>          Custom ID
-</span>
-        </div>
-        <!-- CUSTOM ID INPUT (UNDER SWITCH 2) -->
-        <div class="key-input" id="customIdBox">
-          <input type="text" id="customIdInput" maxlength="13" placeholder="Enter custom ID..." />
-        </div>
-        <button onclick="obfuscate()">
-          Obfuscate
-        </button>
-        <div class="footer">
-          Secure script with Encrypt X Engine
-        </div>
+    <div class="container">
+      <h1>Encrypt X Obfuscator</h1>
+      
+      <textarea id="scriptBox" placeholder="Paste your script here..."></textarea>
+
+      <!-- SWITCH 1 -->
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="keyToggle" onchange="toggleKeyBox()" />
+          <span class="slider"></span>
+        </label>
+        <span>Key (Enable Access)</span>
       </div>
+
+      <!-- KEY INPUT -->
+      <div class="key-input" id="keyBox">
+        <input type="text" id="keyInput" maxlength="32" placeholder="Enter your access key..." />
+      </div>
+
+      <!-- SWITCH 2 -->
+      <div class="switch-container">
+        <label class="switch">
+          <input type="checkbox" id="customIdToggle" onchange="toggleCustomIdBox()" />
+          <span class="slider"></span>
+        </label>
+        <span>Custom ID</span>
+      </div>
+
+      <!-- CUSTOM ID INPUT -->
+      <div class="key-input" id="customIdBox">
+        <input type="text" id="customIdInput" maxlength="13" placeholder="Enter custom ID..." />
+      </div>
+
+      <button onclick="obfuscate()">Obfuscate</button>
+
+      <div class="footer">Secure script with Encrypt X Engine</div>
+      <div class="date">Published: March 27, 2026</div>
     </div>
-    <!-- BOTTOM BANNER -->
-    <div class="bottom-fixed-banner">
-      <script>
-        atOptions = {
-    'key' : 'df503c7aa12efb03962a217b44ac5a2e',
-    'format' : 'iframe',
-    'height' : 250,
-    'width' : 300,
-    'params' : {}
-  };
-      </script>
-      <script src="https://www.highperformanceformat.com/df503c7aa12efb03962a217b44ac5a2e/invoke.js">
-      </script>
-    </div>
-    <div class="date">
-      Published: March 27, 2026
-    </div>
+
     <script>
       function toggleKeyBox() {
-  const toggle = document.getElementById("keyToggle");
-  const box = document.getElementById("keyBox");
-  box.style.display = toggle.checked ? "block" : "none";
-}
+        const toggle = document.getElementById("keyToggle");
+        const box = document.getElementById("keyBox");
+        box.style.display = toggle.checked ? "block" : "none";
+      }
 
-function toggleCustomIdBox() {
-  const toggle = document.getElementById("customIdToggle");
-  const box = document.getElementById("customIdBox");
-  box.style.display = toggle.checked ? "block" : "none";
-}
+      function toggleCustomIdBox() {
+        const toggle = document.getElementById("customIdToggle");
+        const box = document.getElementById("customIdBox");
+        box.style.display = toggle.checked ? "block" : "none";
+      }
 
-async function obfuscate() {
-  const script = document.getElementById("scriptBox");
-  const key = document.getElementById("keyInput");
-  const custom = document.getElementById("customIdInput");
+      async function obfuscate() {
+        const script = document.getElementById("scriptBox");
+        const key = document.getElementById("keyInput");
+        const custom = document.getElementById("customIdInput");
+        const button = document.querySelector("button");
 
-  const button = document.querySelector("button");
+        const keyToggle = document.getElementById("keyToggle");
+        const customToggle = document.getElementById("customIdToggle");
 
-  const keyToggle = document.getElementById("keyToggle");
-  const customToggle = document.getElementById("customIdToggle");
+        if (!script.value) {
+          alert("Script is empty");
+          return;
+        }
 
-  console.log("Script:", script.value);
-  console.log("Key:", key.value);
-  console.log("Custom:", custom.value);
+        if (keyToggle.checked && !key.value) {
+          alert("Key is required");
+          return;
+        }
 
-  if (!script.value) {
-    alert("Script is empty");
-    return;
-  }
+        if (!keyToggle.checked) {
+          key.value = "";
+        }
 
-  if (keyToggle.checked && !key.value) {
-    alert("Key is required");
-    return;
-  }
+        if (!customToggle.checked) {
+          custom.value = "";
+        }
 
-  if (!keyToggle.checked) {
-    key.value = "";
-  }
+        // 🔒 DISABLE EVERYTHING
+        script.disabled = true;
+        key.disabled = true;
+        custom.disabled = true;
+        button.disabled = true;
+        keyToggle.disabled = true;
+        customToggle.disabled = true;
 
-  if (!customToggle.checked) {
-    custom.value = "";
-  }
+        let txt;
+        try {
+          const res = await fetch("https://encrypt-x.scriptobfuscator2.workers.dev/obfuscate" + "?auth=" + key.value + "&Id=" + custom.value, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              script: script.value
+            })
+          });
 
-  // 🔒 DISABLE EVERYTHING
-  script.disabled = true;
-  key.disabled = true;
-  custom.disabled = true;
-  button.disabled = true;
-  keyToggle.disabled = true;
-  customToggle.disabled = true;
+          txt = await res.text();
+          if (txt.includes("loadstring")) {
+            script.value = txt;
+            key.value = "";
+            custom.value = "";
+            alert("Success!");
+          }
+          
+        } catch (err) {
+          alert(err);
+        }
 
-  let txt
-  try {
-    const res = await fetch("https://encrypt-x.scriptobfuscator2.workers.dev/obfuscate" + "?auth=" + key.value + "&Id=" + custom.value, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        script: script.value
-      })
-    });
+        // 🔓 ENABLE EVERYTHING BACK
+        script.disabled = false;
+        key.disabled = false;
+        custom.disabled = false;
+        button.disabled = false;
+        keyToggle.disabled = false;
+        customToggle.disabled = false;
 
-    txt = await res.text();
-    if (txt.includes("loadstring")) {
-      script.value = txt;
-      key.value = "";
-      custom.value = "";
-      alert("Success!");
-    }
-    
-  } catch (err) {
-    alert(err);
-  }
+        if (!txt.includes("loadstring")) {
+          alert(txt);
+          return;
+        }
+        
+        // 🔄 RESET SWITCHES + CLEAR INPUTS + HIDE BOXES
+        keyToggle.checked = false;
+        customToggle.checked = false;
 
-  // 🔓 ENABLE EVERYTHING BACK
-  script.disabled = false;
-  key.disabled = false;
-  custom.disabled = false;
-  button.disabled = false;
-  keyToggle.disabled = false;
-  customToggle.disabled = false;
+        keyBox.style.display = "none";
+        customIdBox.style.display = "none";
 
-  if (!txt.includes("loadstring")) {
-    alert(txt);
-    return;
-  }
-  
-  // 🔄 RESET SWITCHES + CLEAR INPUTS + HIDE BOXES
-  keyToggle.checked = false;
-  customToggle.checked = false;
+        key.value = "";
+        custom.value = "";
+      }
 
-  keyBox.style.display = "none";
-  customIdBox.style.display = "none";
+      const keyInput = document.getElementById("keyInput");
+      keyInput.addEventListener("input", () => {
+        keyInput.value = keyInput.value.replace(/[^a-zA-Z0-9]/g, "");
+      });
 
-  key.value = "";
-  custom.value = "";
-}
-
-const keyInput = document.getElementById("keyInput");
-keyInput.addEventListener("input", () => {
-  keyInput.value = keyInput.value.replace(/[^a-zA-Z0-9]/g, "");
-});
-
-const customInput = document.getElementById("customIdInput");
-customInput.addEventListener("input", () => {
-  customInput.value = customInput.value.replace(/[^a-zA-Z0-9]/g, "");
-});
+      const customInput = document.getElementById("customIdInput");
+      customInput.addEventListener("input", () => {
+        customInput.value = customInput.value.replace(/[^a-zA-Z0-9]/g, "");
+      });
     </script>
   </body>
 </html>
