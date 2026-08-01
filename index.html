@@ -1,15 +1,14 @@
-he<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Encrypt X - Pro Obfuscator</title>
+    <title>PISIT X WACK - Pro Obfuscator</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
       :root {
-        --bg-color: #030712;
         --card-bg: rgba(15, 23, 42, 0.75);
-        --border-color: rgba(56, 189, 248, 0.2);
-        --accent-glow: rgba(56, 189, 248, 0.15);
+        --border-color: rgba(56, 189, 248, 0.25);
+        --accent-glow: rgba(56, 189, 248, 0.2);
         --primary: #38bdf8;
         --primary-hover: #0ea5e9;
         --text-main: #f8fafc;
@@ -22,13 +21,11 @@ he<!DOCTYPE html>
         padding: 0;
       }
 
+      /* พื้นหลังขยับชนมุมแบบสมูทและขยายกว้างขึ้น */
       body {
         min-height: 100vh;
-        background: 
-          radial-gradient(circle at 10% 20%, rgba(14, 165, 233, 0.15) 0%, transparent 40%),
-          radial-gradient(circle at 90% 80%, rgba(168, 85, 247, 0.15) 0%, transparent 40%),
-          var(--bg-color);
-        background-attachment: fixed;
+        position: relative;
+        overflow-x: hidden;
         font-family: 'Inter', system-ui, -apple-system, sans-serif;
         color: var(--text-main);
         display: flex;
@@ -36,11 +33,68 @@ he<!DOCTYPE html>
         align-items: center;
         justify-content: center;
         padding: 24px;
+        background-color: #030712;
+      }
+
+      .bg-animation {
+        position: fixed;
+        inset: -50px;
+        background-image: url("https://i.postimg.cc/BZmdzRJP/IMG-20260801-175704-371.jpg");
+        background-size: cover;
+        background-position: center;
+        filter: blur(3px) brightness(0.9);
+        z-index: -2;
+        animation: panBackground 30s ease-in-out infinite alternate;
+      }
+
+      @keyframes panBackground {
+        0% { transform: scale(1.2) translate(0px, 0px); }
+        20% { transform: scale(1.3) translate(-40px, -30px); }
+        40% { transform: scale(1.25) translate(40px, -25px); }
+        60% { transform: scale(1.35) translate(-30px, 35px); }
+        80% { transform: scale(1.2) translate(25px, 25px); }
+        100% { transform: scale(1.3) translate(-20px, -20px); }
+      }
+
+      .overlay-dark {
+        position: fixed;
+        inset: 0;
+        background: rgba(3, 7, 18, 0.6);
+        z-index: -1;
       }
 
       .wrapper {
         width: 100%;
         max-width: 680px;
+        text-align: center;
+      }
+
+      /* โลโก้อยู่ตรงกลางจอเท่ๆ */
+      .main-title-container {
+        margin-bottom: 24px;
+      }
+
+      h1 {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+        background: linear-gradient(135deg, #38bdf8, #818cf8, #c084fc);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+        margin-bottom: 8px;
+      }
+
+      .badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        background: rgba(56, 189, 248, 0.1);
+        color: var(--primary);
+        padding: 5px 14px;
+        border-radius: 20px;
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        letter-spacing: 0.5px;
       }
 
       .card {
@@ -49,35 +103,9 @@ he<!DOCTYPE html>
         -webkit-backdrop-filter: blur(16px);
         border: 1px solid var(--border-color);
         border-radius: 24px;
-        padding: 40px;
-        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5), 0 0 40px var(--accent-glow);
-      }
-
-      .header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        margin-bottom: 24px;
-      }
-
-      h1 {
-        font-size: 22px;
-        font-weight: 700;
-        letter-spacing: -0.5px;
-        background: linear-gradient(135deg, #38bdf8, #818cf8);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-      }
-
-      .badge {
-        font-size: 11px;
-        font-weight: 600;
-        background: rgba(56, 189, 248, 0.1);
-        color: var(--primary);
-        padding: 6px 12px;
-        border-radius: 20px;
-        border: 1px solid rgba(56, 189, 248, 0.3);
-        letter-spacing: 0.5px;
+        padding: 35px;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--accent-glow);
+        text-align: left;
       }
 
       .editor-label {
@@ -90,8 +118,8 @@ he<!DOCTYPE html>
 
       textarea {
         width: 100%;
-        height: 240px;
-        background: rgba(2, 6, 23, 0.6);
+        height: 220px;
+        background: rgba(2, 6, 23, 0.7);
         border: 1px solid rgba(255, 255, 255, 0.08);
         border-radius: 14px;
         padding: 16px;
@@ -122,6 +150,10 @@ he<!DOCTYPE html>
         cursor: pointer;
         transition: all 0.3s ease;
         box-shadow: 0 4px 20px rgba(37, 99, 235, 0.4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
       }
 
       button:hover {
@@ -135,20 +167,41 @@ he<!DOCTYPE html>
       }
 
       button:disabled {
-        opacity: 0.6;
+        opacity: 0.7;
         cursor: not-allowed;
         transform: none;
+      }
+
+      /* SPINNER โหลดหมุนๆ เท่ๆ */
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: #fff;
+        animation: spin 0.8s linear infinite;
+        display: inline-block;
+      }
+
+      @keyframes spin {
+        to { transform: rotate(360deg); }
       }
 
       .footer-info {
         margin-top: 24px;
         display: flex;
-        justify-content: space-between;
-        align-items: center;
+        flex-direction: column;
+        gap: 10px;
         font-size: 12px;
         color: var(--text-muted);
         border-top: 1px solid rgba(255, 255, 255, 0.05);
         padding-top: 16px;
+      }
+
+      .footer-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
       }
 
       .status-indicator {
@@ -164,50 +217,190 @@ he<!DOCTYPE html>
         border-radius: 50%;
         box-shadow: 0 0 8px #22c55e;
       }
+
+      .tiktok-link {
+        color: #38bdf8;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.2s;
+      }
+
+      .tiktok-link:hover {
+        color: #0ea5e9;
+        text-decoration: underline;
+      }
+
+      .copyright {
+        margin-top: 16px;
+        font-size: 11px;
+        color: #64748b;
+        text-align: center;
+      }
+
+      /* CUSTOM MODAL POPUP */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(3, 7, 18, 0.8);
+        backdrop-filter: blur(8px);
+        display: none;
+        align-items: center;
+        justify-content: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .modal-overlay.active {
+        display: flex;
+        opacity: 1;
+      }
+
+      .modal-box {
+        background: rgba(15, 23, 42, 0.95);
+        border: 1px solid rgba(56, 189, 248, 0.3);
+        border-radius: 20px;
+        padding: 30px;
+        width: min(90%, 360px);
+        text-align: center;
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.2);
+        transform: scale(0.9);
+        transition: transform 0.3s ease;
+      }
+
+      .modal-overlay.active .modal-box {
+        transform: scale(1);
+      }
+
+      .modal-icon {
+        width: 60px;
+        height: 60px;
+        background: rgba(34, 197, 94, 0.15);
+        border: 2px solid #22c55e;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 16px;
+        color: #22c55e;
+        font-size: 28px;
+        box-shadow: 0 0 20px rgba(34, 197, 94, 0.3);
+      }
+
+      .modal-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #f8fafc;
+        margin-bottom: 8px;
+      }
+
+      .modal-text {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-bottom: 24px;
+      }
+
+      .modal-btn {
+        width: 100%;
+        padding: 12px;
+        background: linear-gradient(135deg, #22c55e, #16a34a);
+        border: none;
+        border-radius: 12px;
+        color: white;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 4px 15px rgba(34, 197, 94, 0.4);
+        transition: 0.2s;
+      }
+
+      .modal-btn:hover {
+        background: linear-gradient(135deg, #16a34a, #15803d);
+      }
     </style>
   </head>
   <body>
 
+    <!-- พื้นหลังขยับชนมุมแบบสมูท -->
+    <div class="bg-animation"></div>
+    <div class="overlay-dark"></div>
+
     <div class="wrapper">
+      <!-- โลโก้อยู่ตรงกลางจอ -->
+      <div class="main-title-container">
+        <h1>PISIT X WACK</h1>
+        <span class="badge">PRO EDITION</span>
+      </div>
+
       <div class="card">
-        <div class="header">
-          <h1>Encrypt X Engine</h1>
-          <span class="badge">PRO EDITION</span>
-        </div>
-        
-        <span class="editor-label">-- SOURCE SCRIPT INPUT --</span>
+        <span class="editor-label" id="boxLabel">-- SOURCE SCRIPT INPUT --</span>
         <textarea id="scriptBox" placeholder="Paste your Lua script here..."></textarea>
 
-        <button id="actionBtn" onclick="obfuscate()">Obfuscate Script</button>
+        <button id="actionBtn" onclick="mainAction()">เริ่มปกปิดสคริปต์</button>
 
         <div class="footer-info">
-          <div class="status-indicator">
-            <span class="dot"></span>
-            <span>Secure Engine Online</span>
+          <div class="footer-top">
+            <div class="status-indicator">
+              <span class="dot"></span>
+              <span>Secure Engine Online</span>
+            </div>
+            <span>v2.6 Pro</span>
           </div>
-          <span>v2.6 Pro</span>
+          <div>
+            <span>ผู้ทำเว็บ: </span>
+            <a href="https://www.tiktok.com/@zxtata0?_r=1&_t=ZS-98W9WlpBy6v" target="_blank" class="tiktok-link">zxtata0</a>
+          </div>
         </div>
+      </div>
+
+      <!-- ข้อความลิขสิทธิ์ด้านล่างสุด -->
+      <div class="copyright">
+        © 2026 ค่าย PISIT X WACK.
+      </div>
+    </div>
+
+    <!-- CUSTOM MODAL POPUP -->
+    <div class="modal-overlay" id="customModal">
+      <div class="modal-box">
+        <div class="modal-icon">✓</div>
+        <div class="modal-title">สำเร็จ!</div>
+        <div class="modal-text">ปิด script สำเร็จ</div>
+        <button class="modal-btn" onclick="closeModalAndCopyMode()">ตกลง</button>
       </div>
     </div>
 
     <script>
-      async function obfuscate() {
+      let isReadyToCopy = false;
+      let obfuscatedCode = "";
+
+      async function mainAction() {
         const script = document.getElementById("scriptBox");
         const button = document.getElementById("actionBtn");
 
-        if (!script.value.trim()) {
-          alert("Script box is empty!");
+        // ถ้าอยู่ในโหมดพร้อมคัดลอก กดแล้วก๊อปปี้ลงคลิปบอร์ดทันที
+        if (isReadyToCopy) {
+          navigator.clipboard.writeText(script.value).then(() => {
+            button.innerText = "คัดลอกสคริปต์สำเร็จ! ✓";
+            setTimeout(() => {
+              button.innerText = "คัดลอกสคริปต์";
+            }, 2000);
+          }).catch(err => {
+            alert("ไม่สามารถคัดลอกได้: " + err);
+          });
           return;
         }
 
-        // ล็อกปุ่มและช่องใส่ข้อความขณะประมวลผล
+        if (!script.value.trim()) {
+          alert("กรุณาใส่สคริปต์ก่อนใช้งาน!");
+          return;
+        }
+
+        // ล็อกปุ่ม แสดง Spinner หมุนๆ เท่ๆ
         script.disabled = true;
         button.disabled = true;
-        button.innerText = "Encrypting...";
+        button.innerHTML = '<span class="spinner"></span> กำลังปกปิดตรวจรอสักครู่...';
 
-        let txt = "";
         try {
-          // ส่งค่า Key และ Custom ID เป็นค่าว่างไปหลังบ้านตามเดิมเป๊ะๆ
           const res = await fetch("https://encrypt-x.scriptobfuscator2.workers.dev/obfuscate?auth=&Id=", {
             method: "POST",
             headers: {
@@ -218,22 +411,45 @@ he<!DOCTYPE html>
             })
           });
 
-          txt = await res.text();
+          const txt = await res.text();
           if (txt.includes("loadstring")) {
+            obfuscatedCode = txt;
             script.value = txt;
-            alert("Success! Script obfuscated.");
+            
+            // เปิด Custom Modal ป๊อปอัปสวยๆ
+            document.getElementById("customModal").classList.add("active");
           } else {
-            alert(txt || "An error occurred.");
+            alert(txt || "เกิดข้อผิดพลาดบางอย่าง!");
+            resetButtonNormal();
           }
           
         } catch (err) {
-          alert("Connection error: " + err);
+          alert("ไม่สามารถเชื่อมต่อเซิร์ฟเวอร์ได้: " + err);
+          resetButtonNormal();
         }
+      }
 
-        // คืนสถานะปกติ
+      function closeModalAndCopyMode() {
+        // ปิด Modal
+        document.getElementById("customModal").classList.remove("active");
+
+        // เปลี่ยนสถานะปุ่มเป็นโหมดคัดลอกสคริปต์
+        isReadyToCopy = true;
+        const button = document.getElementById("actionBtn");
+        button.disabled = false;
+        button.innerText = "คัดลอกสคริปต์";
+        
+        // เปลี่ยนป้ายหัวข้อ
+        document.getElementById("boxLabel").innerText = "-- OBFUSCATED SCRIPT (READY TO COPY) --";
+        script.disabled = false;
+      }
+
+      function resetButtonNormal() {
+        const script = document.getElementById("scriptBox");
+        const button = document.getElementById("actionBtn");
         script.disabled = false;
         button.disabled = false;
-        button.innerText = "Obfuscate Script";
+        button.innerText = "เริ่มปกปิดสคริปต์";
       }
     </script>
   </body>
