@@ -3,7 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <title>PISIT X WACK - Pro Obfuscator</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- ล็อกไม่ให้ซูมหน้าจอทั้งมือถือและ PC -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <style>
       :root {
         --card-bg: rgba(15, 23, 42, 0.75);
@@ -15,13 +16,21 @@
         --text-muted: #94a3b8;
       }
 
+      /* คลาสสำหรับเปลี่ยนเป็นธีมสีแดง */
+      body.red-theme {
+        --border-color: rgba(239, 68, 68, 0.3);
+        --accent-glow: rgba(239, 68, 68, 0.2);
+        --primary: #ef4444;
+        --primary-hover: #dc2626;
+      }
+
       * {
         box-sizing: border-box;
         margin: 0;
         padding: 0;
+        touch-action: pan-x pan-y;
       }
 
-      /* พื้นหลังขยับชนมุมแบบสมูทและขยายกว้างขึ้น */
       body {
         min-height: 100vh;
         position: relative;
@@ -42,9 +51,10 @@
         background-image: url("https://i.postimg.cc/BZmdzRJP/IMG-20260801-175704-371.jpg");
         background-size: cover;
         background-position: center;
-        filter: blur(3px) brightness(0.9);
+        filter: blur(0px) brightness(0.9);
         z-index: -2;
         animation: panBackground 30s ease-in-out infinite alternate;
+        transition: background-image 0.5s ease-in-out;
       }
 
       @keyframes panBackground {
@@ -69,7 +79,6 @@
         text-align: center;
       }
 
-      /* โลโก้อยู่ตรงกลางจอเท่ๆ */
       .main-title-container {
         margin-bottom: 24px;
       }
@@ -83,6 +92,14 @@
         -webkit-text-fill-color: transparent;
         text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
         margin-bottom: 8px;
+        transition: background 0.3s ease;
+      }
+
+      body.red-theme h1 {
+        background: linear-gradient(135deg, #ef4444, #f87171, #fca5a5);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-shadow: 0 0 30px rgba(239, 68, 68, 0.3);
       }
 
       .badge {
@@ -95,6 +112,7 @@
         border-radius: 20px;
         border: 1px solid rgba(56, 189, 248, 0.3);
         letter-spacing: 0.5px;
+        transition: all 0.3s ease;
       }
 
       .card {
@@ -106,6 +124,7 @@
         padding: 35px;
         box-shadow: 0 25px 50px rgba(0, 0, 0, 0.6), 0 0 40px var(--accent-glow);
         text-align: left;
+        transition: border 0.3s ease, box-shadow 0.3s ease;
       }
 
       .editor-label {
@@ -134,7 +153,7 @@
 
       textarea:focus {
         border-color: var(--primary);
-        box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
+        box-shadow: 0 0 0 3px var(--accent-glow);
       }
 
       button {
@@ -156,10 +175,14 @@
         gap: 10px;
       }
 
+      body.red-theme button {
+        background: linear-gradient(135deg, #dc2626, #b91c1c);
+        box-shadow: 0 4px 20px rgba(220, 38, 38, 0.4);
+      }
+
       button:hover {
-        background: linear-gradient(135deg, #0284c7, #1d4ed8);
+        opacity: 0.9;
         transform: translateY(-2px);
-        box-shadow: 0 6px 25px rgba(37, 99, 235, 0.6);
       }
 
       button:active {
@@ -172,7 +195,6 @@
         transform: none;
       }
 
-      /* SPINNER โหลดหมุนๆ เท่ๆ */
       .spinner {
         width: 18px;
         height: 18px;
@@ -218,15 +240,30 @@
         box-shadow: 0 0 8px #22c55e;
       }
 
+      .creator-container {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .profile-avatar {
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 1px solid var(--primary);
+        box-shadow: 0 0 8px var(--accent-glow);
+        transition: border 0.3s ease;
+      }
+
       .tiktok-link {
-        color: #38bdf8;
+        color: var(--primary);
         text-decoration: none;
         font-weight: 600;
-        transition: 0.2s;
+        transition: color 0.3s ease;
       }
 
       .tiktok-link:hover {
-        color: #0ea5e9;
         text-decoration: underline;
       }
 
@@ -237,7 +274,6 @@
         text-align: center;
       }
 
-      /* CUSTOM MODAL POPUP */
       .modal-overlay {
         position: fixed;
         inset: 0;
@@ -258,14 +294,14 @@
 
       .modal-box {
         background: rgba(15, 23, 42, 0.95);
-        border: 1px solid rgba(56, 189, 248, 0.3);
+        border: 1px solid var(--border-color);
         border-radius: 20px;
         padding: 30px;
         width: min(90%, 360px);
         text-align: center;
-        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(56, 189, 248, 0.2);
+        box-shadow: 0 25px 50px rgba(0, 0, 0, 0.7), 0 0 30px var(--accent-glow);
         transform: scale(0.9);
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, border 0.3s ease;
       }
 
       .modal-overlay.active .modal-box {
@@ -321,12 +357,10 @@
   </head>
   <body>
 
-    <!-- พื้นหลังขยับชนมุมแบบสมูท -->
-    <div class="bg-animation"></div>
+    <div class="bg-animation" id="bgAnimation"></div>
     <div class="overlay-dark"></div>
 
     <div class="wrapper">
-      <!-- โลโก้อยู่ตรงกลางจอ -->
       <div class="main-title-container">
         <h1>PISIT X WACK</h1>
         <span class="badge">PRO EDITION</span>
@@ -346,20 +380,19 @@
             </div>
             <span>v2.6 Pro</span>
           </div>
-          <div>
+          <div class="creator-container">
             <span>ผู้ทำเว็บ: </span>
+            <img src="https://i.postimg.cc/zXg9xrkr/IMG-20260622-125728.jpg" alt="Profile" class="profile-avatar">
             <a href="https://www.tiktok.com/@zxtata0?_r=1&_t=ZS-98W9WlpBy6v" target="_blank" class="tiktok-link">zxtata0</a>
           </div>
         </div>
       </div>
 
-      <!-- ข้อความลิขสิทธิ์ด้านล่างสุด -->
       <div class="copyright">
         © 2026 ค่าย PISIT X WACK.
       </div>
     </div>
 
-    <!-- CUSTOM MODAL POPUP -->
     <div class="modal-overlay" id="customModal">
       <div class="modal-box">
         <div class="modal-icon">✓</div>
@@ -377,7 +410,6 @@
         const script = document.getElementById("scriptBox");
         const button = document.getElementById("actionBtn");
 
-        // ถ้าอยู่ในโหมดพร้อมคัดลอก กดแล้วก๊อปปี้ลงคลิปบอร์ดทันที
         if (isReadyToCopy) {
           navigator.clipboard.writeText(script.value).then(() => {
             button.innerText = "คัดลอกสคริปต์สำเร็จ! ✓";
@@ -395,14 +427,13 @@
           return;
         }
 
-        // ล็อกปุ่ม แสดง Spinner หมุนๆ เท่ๆ
         script.disabled = true;
         button.disabled = true;
         button.innerHTML = '<span class="spinner"></span> กำลังปกปิดตรวจรอสักครู่...';
 
         try {
           const res = await fetch("https://encrypt-x.scriptobfuscator2.workers.dev/obfuscate?auth=&Id=", {
-            method: "POST",
+            method: "PUT",
             headers: {
               "Content-Type": "application/json"
             },
@@ -416,7 +447,7 @@
             obfuscatedCode = txt;
             script.value = txt;
             
-            // เปิด Custom Modal ป๊อปอัปสวยๆ
+            // เปิด Popup ติ๊กถูกสำเร็จ
             document.getElementById("customModal").classList.add("active");
           } else {
             alert(txt || "เกิดข้อผิดพลาดบางอย่าง!");
@@ -433,13 +464,19 @@
         // ปิด Modal
         document.getElementById("customModal").classList.remove("active");
 
-        // เปลี่ยนสถานะปุ่มเป็นโหมดคัดลอกสคริปต์
+        // เปลี่ยนพื้นหลังเป็นรูปใหม่ตามที่ต้องการ
+        document.getElementById("bgAnimation").style.backgroundImage = 'url("https://i.postimg.cc/Xv3PnCcS/file-000000003afc820797929cc434055d65.png")';
+        
+        // สลับ UI ทั้งหมดเป็นธีมสีแดง
+        document.body.classList.add("red-theme");
+
+        // ตั้งค่าปุ่มให้อยู่ในโหมดคัดลอก
         isReadyToCopy = true;
+        const script = document.getElementById("scriptBox");
         const button = document.getElementById("actionBtn");
         button.disabled = false;
         button.innerText = "คัดลอกสคริปต์";
         
-        // เปลี่ยนป้ายหัวข้อ
         document.getElementById("boxLabel").innerText = "-- OBFUSCATED SCRIPT (READY TO COPY) --";
         script.disabled = false;
       }
