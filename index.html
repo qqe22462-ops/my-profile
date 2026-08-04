@@ -3,39 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pisit Hub - Protected</title>
+    <title>PISIT X TATA - Hub Script Loader</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- FontAwesome สำหรับไอคอน -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { 
-            background-color: #000000; 
-            color: #ff3333; 
-            font-family: monospace; 
-            text-align: center; 
-            padding-top: 30vh; 
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
-        h1 { font-size: 2rem; text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-        p { color: #666; font-size: 0.95rem; }
+
+        body {
+            background: linear-gradient(135deg, #0f172a, #1e1b4b, #0f172a);
+            color: #f8fafc;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #38bdf8, #818cf8, #c084fc);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            color: #94a3b8;
+            font-size: 0.95rem;
+        }
+
+        .script-box {
+            background: #0f172a;
+            border: 1px solid #334155;
+            border-radius: 12px;
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 30px;
+            overflow-x: auto;
+        }
+
+        .script-box code {
+            color: #38bdf8;
+            font-family: monospace;
+            font-size: 0.9rem;
+            white-space: nowrap;
+        }
+
+        .platforms-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .platform-card {
+            background: rgba(15, 23, 42, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            text-align: center;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .platform-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .platform-card i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .platform-card h3 {
+            font-size: 1.25rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .platform-card p {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 20px;
+        }
+
+        .btn-copy {
+            width: 100%;
+            background: linear-gradient(135deg, #0284c7, #4f46e5);
+            color: #ffffff;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: opacity 0.2s ease, transform 0.1s ease;
+        }
+
+        .btn-copy:hover {
+            opacity: 0.9;
+        }
+
+        .btn-copy:active {
+            transform: scale(0.98);
+        }
+
+        .btn-copy.copied {
+            background: linear-gradient(135deg, #10b981, #059669);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #64748b;
+            font-size: 0.8rem;
+        }
     </style>
 </head>
 <body>
-    <h1>🔒 PISIT SCRIPT PROTECTED</h1>
-    <p>This script backend is private and secured.</p>
+
+    <div class="container">
+        <div class="header">
+            <h1>PISIT X TATA</h1>
+            <p>ระบบคัดลอกสคริปต์สุดพิเศษ รองรับทุกแพลตฟอร์มอย่างเป็นทางการ</p>
+        </div>
+
+        <!-- แสดงตัวอย่างโค้ด -->
+        <div class="script-box">
+            <code id="raw-script">loadstring(game:HttpGet("https://raw.githubusercontent.com/qqe22462-ops/PISIT-X-TATA/refs/heads/main/PISIT.LUA"))()</code>
+        </div>
+
+        <!-- ส่วนเลือกแพลตฟอร์ม -->
+        <div class="platforms-grid">
+            <!-- PC Card -->
+            <div class="platform-card">
+                <i class="fa-solid fa-desktop"></i>
+                <h3>PC (Windows)</h3>
+                <p>เหมาะสำหรับผู้เล่นผ่านโปรแกรมจำลองหรือคอมพิวเตอร์หลัก</p>
+                <button class="btn-copy" onclick="copyScript(this)">
+                    <i class="fa-solid fa-copy"></i> คัดลอกสคริปต์ (PC)
+                </button>
+            </div>
+
+            <!-- Android Card -->
+            <div class="platform-card">
+                <i class="fa-solid fa-mobile-screen-button"></i>
+                <h3>Android</h3>
+                <p>เหมาะสำหรับผู้เล่นผ่านมือถือที่ใช้งาน Exploit บนมือถือ</p>
+                <button class="btn-copy" onclick="copyScript(this)">
+                    <i class="fa-solid fa-copy"></i> คัดลอกสคริปต์ (Android)
+                </button>
+            </div>
+        </div>
+
+        <div class="footer">
+            &copy; 2026 PISIT X TATA. All Rights Reserved.
+        </div>
+    </div>
 
     <script>
-        // ใส่ลิงก์ Cloudflare Worker ของมึงตรงนี้
-        const workerUrl = "https://blue-mouse-e986blue-mouse-e986.qqe22462.workers.dev/";
+        const scriptText = 'loadstring(game:HttpGet("https://raw.githubusercontent.com/qqe22462-ops/PISIT-X-TATA/refs/heads/main/PISIT.LUA"))()';
 
-        // ดึงโค้ด Lua จาก Worker หลังบ้าน
-        fetch(workerUrl)
-        .then(response => response.text())
-        .then(code => {
-            // ถ้าตัวรันเกมเรียกเข้ามาและได้โค้ด Lua กลับมา ให้แปลงหน้าเว็บนี้เป็นโค้ด Lua ทันที
-            if (code.includes("local") || code.includes("Library") || code.includes("game")) {
-                document.documentElement.innerText = code;
-            }
-        }).catch(err => {
-            console.log("Protected");
-        });
+        function copyScript(button) {
+            navigator.clipboard.writeText(scriptText).then(() => {
+                const originalHTML = button.innerHTML;
+                button.innerHTML = '<i class="fa-solid fa-check"></i> คัดลอกสำเร็จ!';
+                button.classList.add('copied');
+
+                setTimeout(() => {
+                    button.innerHTML = originalHTML;
+                    button.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                alert('เกิดข้อผิดพลาดในการคัดลอก: ' + err);
+            });
+        }
     </script>
+
 </body>
 </html>
